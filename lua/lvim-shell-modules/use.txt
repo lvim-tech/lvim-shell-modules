@@ -1,0 +1,55 @@
+local neomutt = require("lvim-shell-modules.neomutt")
+
+-- Запазваме конфигурацията
+local config = {
+    accounts = {
+        {
+            name = "Personal",
+            email = "user@example.com",
+            from = "User Name <user@example.com>",
+            smtp = "smtp://smtp.example.com:587",
+            imap = "imaps://imap.example.com:993"
+        },
+        {
+            name = "Work",
+            email = "work@company.com",
+            from = "Work Name <work@company.com>",
+            smtp = "smtp://smtp.company.com:587",
+            imap = "imaps://imap.company.com:993"
+        }
+    }
+}
+
+neomutt.open(config)
+neomutt.account("Personal", config)
+neomutt.compose("recipient@example.com", config)
+
+
+local lazygit = require("lvim-shell-modules.lazygit")
+local config = {
+    configure = true, -- автоматично конфигуриране на цветовете
+    config = {
+        gui = {
+            nerdFontsVersion = "3",
+            theme = {
+                activeBorderColor = { fg = "MatchParen", bold = true },
+                inactiveBorderColor = { fg = "FloatBorder" },
+                selectedLineBgColor = { bg = "Visual" },
+            }
+        },
+        os = {
+            editCommand = "nvim",
+        },
+    }
+}
+
+-- Използване на конфигурацията
+lazygit.open(config)
+lazygit.log(config)
+lazygit.log_file(config)
+
+-- За конкретно репо
+lazygit.repo("~/projects/my-repo", config)
+
+-- За конкретен бранч
+lazygit.branch("main", config)
